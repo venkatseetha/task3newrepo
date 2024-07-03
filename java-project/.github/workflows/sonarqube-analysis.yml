@@ -18,14 +18,15 @@ jobs:
       with:
         distribution: 'temurin'
         java-version: '17'
-      - name: Run SonarQube analysis
-        env:
-          SONAR_TOKEN: sqp_c917e435e65aae05304e8a5cddec8cae361fcc0f
-          SONAR_HOST_URL: http://3.88.181.110:9000
-        run: |
-          mvn clean package sonar:sonar
-      - name: Upload coverage report to SonarQube
-        uses: sonarcloud/sonarcloud-github-action@v1
+    - name: Build with Maven
+      run: mvn clean install
+    - name: Run SonarQube analysis
+      env:
+        SONAR_TOKEN: sqp_c917e435e65aae05304e8a5cddec8cae361fcc0f
+        SONAR_HOST_URL: http://3.88.181.110:9000
+
+    - name: Upload coverage report to SonarQube
+      uses: sonarcloud/sonarcloud-github-action@v1
         with:
           github-token: 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
           sonar-token: sqp_c917e435e65aae05304e8a5cddec8cae361fcc0f
